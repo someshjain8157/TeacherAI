@@ -93,6 +93,29 @@ Then open:
 http://127.0.0.1:8000
 ```
 
+### 1.8 Chatbot URLs and endpoints
+
+Once the server is running, these are the main browser/API entry points:
+
+- `http://127.0.0.1:8000`
+  - Main chatbot web page served by FastAPI.
+- `http://127.0.0.1:8000/docs`
+  - FastAPI Swagger UI for testing the API directly in the browser.
+- `GET /subjects`
+  - Returns the available subject folder names from `books/`.
+- `POST /ask`
+  - Streams the chatbot answer.
+  - Example request body:
+
+```json
+{
+  "question": "Explain photosynthesis",
+  "subject": "SCIENCE - Exploration"
+}
+```
+
+The `/ask` endpoint returns a streaming plain-text response, so it is best used from the web UI or the Swagger docs page.
+
 ## 2. Files to create or update
 
 ### Required files
