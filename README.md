@@ -1,6 +1,6 @@
 # TeacherAI
 
-TeacherAI is a FastAPI-based educational assistant for Grade 9 students. It lets users ask questions about textbook content, get answers with retrieval-augmented generation (RAG), and receive quiz-style or study-help responses grounded in local PDF books.
+TeacherAI is a FastAPI-based educational assistant for students. It lets users ask questions about textbook content, get answers with retrieval-augmented generation (RAG), and receive quiz-style or study-help responses grounded in local PDF books.
 
 ## 1. Setup
 
