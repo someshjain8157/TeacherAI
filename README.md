@@ -116,28 +116,9 @@ Once the server is running, these are the main browser/API entry points:
 
 The `/ask` endpoint returns a streaming plain-text response, so it is best used from the web UI or the Swagger docs page.
 
-### 1.9 Using the packaged EXE
+### 1.9 Build the EXE
 
-If you build TeacherAI with PyInstaller, a non-technical user can use it like this:
-
-1. Open the `dist` folder.
-2. Double-click `TeacherAI.exe`.
-3. Wait a few seconds while the local server starts.
-4. The browser opens automatically to `http://127.0.0.1:8000`.
-5. Ask questions in the chatbot page.
-
-For the packaged app to work well, keep these items in the same folder as the EXE:
-
-- `books/`
-  - Contains the subject PDFs used by the chatbot.
-- `chromadb/`
-  - Stores the local vector database. It can be created automatically if missing.
-
-The EXE will show an error if Ollama is not running, so the user should start Ollama first and then open `TeacherAI.exe`.
-
-### 1.10 PyInstaller build steps
-
-Use `launch.py` as the PyInstaller entry script. It starts the FastAPI server and opens the browser for the user.
+Use `launch.py` as the PyInstaller entry script. It starts the FastAPI server, waits for it to be ready, and opens the browser for the user.
 
 Build the EXE from the project root:
 
@@ -151,14 +132,31 @@ After the build finishes, the executable will be created in:
 dist\TeacherAI.exe
 ```
 
-The packaged app expects these folders to be available beside the EXE:
+### 1.10 Run the packaged EXE
 
-- `books/`
-  - Subject PDFs used by the chatbot.
-- `chromadb/`
-  - Local vector database for retrieval.
+For a non-technical user, the app should be distributed as a folder that contains the EXE plus the local data it needs.
 
-The EXE also needs Ollama running locally before it starts.
+Recommended folder layout:
+
+```text
+TeacherAI Folder/
+  TeacherAI.exe
+  books/
+  chromadb/
+```
+
+How to use it:
+
+1. Make sure Ollama is installed and running on the same computer.
+2. Open the folder that contains `TeacherAI.exe`.
+3. Double-click `TeacherAI.exe`.
+4. Wait a few seconds while the local server starts.
+5. The browser opens automatically to `http://127.0.0.1:8000`.
+6. Ask questions in the chatbot page.
+
+If `books/` is missing, the chatbot will not have textbook content to search.
+If `chromadb/` is missing, it can be created again when the app rebuilds the local index.
+If Ollama is not running, the EXE will show an error and stop.
 
 ## 2. Files to create or update
 
@@ -194,8 +192,6 @@ That command will:
 If you add new books or replace existing PDFs, run the same command again so the search index is updated.
 
 ## 4. File overview
-
-## 2. File overview
 
 ### Core app files
 - app/server.py
