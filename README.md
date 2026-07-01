@@ -116,6 +116,50 @@ Once the server is running, these are the main browser/API entry points:
 
 The `/ask` endpoint returns a streaming plain-text response, so it is best used from the web UI or the Swagger docs page.
 
+### 1.9 Using the packaged EXE
+
+If you build TeacherAI with PyInstaller, a non-technical user can use it like this:
+
+1. Open the `dist` folder.
+2. Double-click `TeacherAI.exe`.
+3. Wait a few seconds while the local server starts.
+4. The browser opens automatically to `http://127.0.0.1:8000`.
+5. Ask questions in the chatbot page.
+
+For the packaged app to work well, keep these items in the same folder as the EXE:
+
+- `books/`
+  - Contains the subject PDFs used by the chatbot.
+- `chromadb/`
+  - Stores the local vector database. It can be created automatically if missing.
+
+The EXE will show an error if Ollama is not running, so the user should start Ollama first and then open `TeacherAI.exe`.
+
+### 1.10 PyInstaller build steps
+
+Use `launch.py` as the PyInstaller entry script. It starts the FastAPI server and opens the browser for the user.
+
+Build the EXE from the project root:
+
+```powershell
+pyinstaller --noconfirm --clean TeacherAI.spec
+```
+
+After the build finishes, the executable will be created in:
+
+```text
+dist\TeacherAI.exe
+```
+
+The packaged app expects these folders to be available beside the EXE:
+
+- `books/`
+  - Subject PDFs used by the chatbot.
+- `chromadb/`
+  - Local vector database for retrieval.
+
+The EXE also needs Ollama running locally before it starts.
+
 ## 2. Files to create or update
 
 ### Required files

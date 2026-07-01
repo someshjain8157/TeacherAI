@@ -1,7 +1,11 @@
+import sys
 from pathlib import Path
 
 # Project folders
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if getattr(sys, "frozen", False):
+    PROJECT_ROOT = Path(sys.executable).resolve().parent
+else:
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
 BOOKS_DIR = PROJECT_ROOT / "books"
 CHROMA_DIR = PROJECT_ROOT / "chromadb"
 
