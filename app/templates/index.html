@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Akanksh AI 1.0</title>
+
+    <link rel="stylesheet"
+          href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Akanksh AI 1.0</h1>
+
+    <p class="subtitle">
+        Ask questions from your Grade 9 school textbooks.
+    </p>
+
+    <div class="about-akanksh">
+
+    <h3>A.K.A.N.K.S.H.</h3>
+
+    <p class="akanksh-fullname">
+        <span class="letter">A</span>rtificial
+        <span class="letter">K</span>nowledge
+        <span class="letter">A</span>ssistant for
+    </p>
+
+    <p class="akanksh-fullname">
+        <span class="letter">N</span>ext-generation
+        <span class="letter">K</span>nowledge
+        <span class="letter">S</span>upport and
+        <span class="letter">H</span>elp
+    </p>
+
+</div>
+<label for="subject">
+    Subject
+</label>
+
+<select id="subject">
+
+    <option value="">
+        All Subjects
+    </option>
+
+</select>
+
+<br><br>
+    <textarea
+        id="question"
+        placeholder="Ask your question..."></textarea>
+
+    <button id="micButton">
+    🎤 Speak
+    </button>    
+
+    <button id="askButton">
+        Ask
+    </button>
+
+    <div id="loading">
+        Akanksh AI 1.0 is thinking...
+    </div>
+
+    <div id="answerBox">
+
+        <h2>Answer</h2>
+
+        <div id="answer"></div>
+
+        <h3>Sources</h3>
+
+        <ul id="sources"></ul>
+
+    </div>
+
+</div>
+
+<script src="/static/app.js"></script>
+
+</body>
+
+</html>
