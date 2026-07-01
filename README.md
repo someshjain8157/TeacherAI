@@ -8,16 +8,21 @@ TeacherAI is a FastAPI-based educational assistant for Grade 9 students. It lets
 - Python 3.10+ (the project is currently running with Python 3.14 in this environment)
 - Ollama installed and running locally
 - A local virtual environment recommended
+- Internet access for the first install of Python packages and Ollama model download
 
-### Windows setup
+### 1.1 Create a virtual environment
 ```powershell
 cd C:\TeacherAI
 python -m venv .venv
 .\.venv\Scripts\activate
+```
+
+### 1.2 Install project libraries
+```powershell
 pip install -r requirements.txt
 ```
 
-### Install and run Ollama
+### 1.3 Install and run Ollama
 If Ollama is not installed yet, install it from https://ollama.com and then pull the model used by the app:
 
 ```powershell
@@ -25,8 +30,37 @@ ollama pull phi3:mini
 ollama serve
 ```
 
-### Prepare the textbook data
-Place your PDF textbooks inside the books folder using this structure:
+### 1.4 Project folder structure
+```text
+TeacherAI/
+  app/
+    chatbot.py
+    config.py
+    memory.py
+    question_generator.py
+    quiz.py
+    rag.py
+    server.py
+    static/
+      app.js
+      style.css
+      avatar/
+    templates/
+      index.html
+  books/
+    SCIENCE - Exploration/
+    ENGLISH- Kaveri/
+    HINDI - Ganga/
+    MATH - Ganita Manjari/
+    SANSKRIT - Sarada/
+    SOCIAL SCIENCE - Understand Society/
+  chromadb/
+  requirements.txt
+  README.md
+```
+
+### 1.5 Add PDF textbooks
+Place your textbook PDFs inside the subject folders under books/. Example:
 
 ```text
 books/
@@ -37,19 +71,62 @@ books/
     chapter1.pdf
 ```
 
-### Build the vector database
-The app uses Chroma with embeddings from local PDFs. Build the knowledge base once before first use:
+### 1.6 Create the RAG knowledge base
+The app uses Chroma and sentence embeddings to retrieve relevant textbook content. Build the knowledge base once before first use:
 
 ```powershell
 python -m app.rag
 ```
 
-### Start the app
+This will:
+- read the PDFs from the books folder
+- split them into chunks
+- create or update the vector database in chromadb/
+
+### 1.7 Start the server
 ```powershell
 uvicorn app.server:app --reload
 ```
 
-Open http://127.0.0.1:8000 in your browser.
+Then open:
+```text
+http://127.0.0.1:8000
+```
+
+## 2. Files to create or update
+
+### Required files
+- requirements.txt
+  - Python dependencies for the project
+- .venv/
+  - Local virtual environment for the app
+- chromadb/
+  - Created automatically when the RAG database is built
+
+### Optional files you may create
+- .gitignore
+  - Recommended to ignore .venv/, __pycache__/, and chromadb/ if you do not want to commit them
+- logs/
+  - Optional folder for debugging or runtime logs
+
+## 3. How to convert PDFs into RAG content
+
+The app does not use a manual PDF-to-RAG conversion step. Instead, it automatically processes PDFs when you run:
+
+```powershell
+python -m app.rag
+```
+
+That command will:
+1. scan all PDF files inside the books/ folder
+2. extract text from each page
+3. split the text into chunks
+4. generate embeddings
+5. store the vector database in chromadb/
+
+If you add new books or replace existing PDFs, run the same command again so the search index is updated.
+
+## 4. File overview
 
 ## 2. File overview
 
