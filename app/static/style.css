@@ -24,6 +24,22 @@ h1 {
     margin-bottom: 10px;
 }
 
+.avatar-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.avatar-image {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #f8fafc;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
 .subtitle {
     text-align: center;
     color: #666;

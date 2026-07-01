@@ -1,5 +1,6 @@
 const askButton = document.getElementById("askButton");
 const questionBox = document.getElementById("question");
+const avatarImage = document.getElementById("avatarImage");
 
 const loading = document.getElementById("loading");
 
@@ -17,13 +18,25 @@ recognition.lang = "en-IN";
 recognition.continuous = false;
 recognition.interimResults = false;
 
+function setAvatarState(state) {
+    const avatarName = state || "idle";
+    avatarImage.src = `/static/avatar/${avatarName}.png`;
+}
+
 micButton.addEventListener("click", () => {
+    setAvatarState("listening");
     recognition.start();
 });
 
 recognition.onresult = async (event) => {
     questionBox.value = event.results[0][0].transcript;
     await askQuestion();
+};
+
+recognition.onend = () => {
+    if (avatarImage.src.includes("listening.png")) {
+        setAvatarState("idle");
+    }
 };
 
 loadSubjects();
@@ -141,6 +154,7 @@ async function askQuestion() {
         return;
     }
 
+    setAvatarState("thinking");
     loading.style.display = "block";
     answerBox.style.display = "none";
     askButton.disabled = true;
@@ -210,6 +224,7 @@ async function askQuestion() {
         await new Promise(resolve => requestAnimationFrame(resolve));
 
         if (spokenText) {
+            setAvatarState("speaking");
             await new Promise(resolve => setTimeout(resolve, speechDelayMs));
             await speakAnswer(spokenText);
         }
@@ -219,5 +234,8 @@ async function askQuestion() {
     } finally {
         loading.style.display = "none";
         askButton.disabled = false;
+        if (!avatarImage.src.includes("listening.png")) {
+            setAvatarState("idle");
+        }
     }
 }
