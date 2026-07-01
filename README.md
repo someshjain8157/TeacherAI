@@ -87,7 +87,10 @@ Open http://127.0.0.1:8000 in your browser.
   - Main web page UI for the chatbot.
 
 - app/static/style.css
-  - Styles for the app interface.
+  - Styles for the app interface, including the avatar layout and image states.
+
+- app/static/avatar/
+  - Contains the avatar images used for idle, listening, thinking, and speaking states.
 
 ### Data and utilities
 - books/
